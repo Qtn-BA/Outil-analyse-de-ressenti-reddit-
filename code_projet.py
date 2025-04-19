@@ -19,22 +19,17 @@ reddit = praw.Reddit(
 subreddit = reddit.subreddit('python')
 
 
-
-
-
-
-def chercher_avis(mot_cle, limite=20):
+def chercher_avis(mot_cle, limite=1000):
     maintenant = datetime.now(timezone.utc)
     posts_24h, posts_1w, posts_1m = [], [], []
 
-    for post in reddit.subreddit("all").search(mot_cle, sort='new', limit=limite):
+    # D'abord, les tout récents (moins de 24h)
+    for post in reddit.subreddit("all").search(mot_cle, sort='new', time_filter='day', limit=int(limite / 3)):
         date_post = datetime.fromtimestamp(post.created_utc, timezone.utc)
         age = maintenant - date_post
 
-        titre = post.title
-
         info = {
-            'titre': titre,
+            'titre': post.title,
             'url': post.url,
             'score': post.score,
             'date': date_post.strftime("%Y-%m-%d %H:%M:%S"),
@@ -42,9 +37,22 @@ def chercher_avis(mot_cle, limite=20):
 
         if age <= timedelta(days=1):
             posts_24h.append(info)
-        elif age <= timedelta(days=7):
+
+    # Ensuite, les posts plus anciens (jusqu’à un mois)
+    for post in reddit.subreddit("all").search(mot_cle, sort='relevance', time_filter='month', limit=int(limite * 2 / 3)):
+        date_post = datetime.fromtimestamp(post.created_utc, timezone.utc)
+        age = maintenant - date_post
+
+        info = {
+            'titre': post.title,
+            'url': post.url,
+            'score': post.score,
+            'date': date_post.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+        if timedelta(days=1) < age <= timedelta(days=7):
             posts_1w.append(info)
-        elif age <= timedelta(days=30):
+        elif timedelta(days=7) < age <= timedelta(days=30):
             posts_1m.append(info)
 
     return {
@@ -52,6 +60,8 @@ def chercher_avis(mot_cle, limite=20):
         "il_y_a_une_semaine": posts_1w,
         "il_y_a_un_mois": posts_1m
     }
+
+
 
 def generer_prompt_pour_gemini(mot_cle, limite=20):
     avis = chercher_avis(mot_cle, limite)
@@ -78,3 +88,6 @@ et justifie ton analyse avec des observations. Résume par une tendance globale.
 
 response = gemini_model.generate_content(generer_prompt_pour_gemini("Trump"))
 print(response.text)
+
+
+
