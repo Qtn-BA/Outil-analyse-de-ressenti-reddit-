@@ -1,6 +1,11 @@
 import praw
 from datetime import datetime, timedelta, timezone
 import google.generativeai as genai
+import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+from collections import defaultdict, Counter
+import plotly.graph_objects as go
+from textblob import TextBlob
 
 genai.configure(api_key="METTRE LE TIEN")
 
@@ -17,6 +22,8 @@ reddit = praw.Reddit(
 )
 
 subreddit = reddit.subreddit('python')
+
+
 
 
 def chercher_avis(mot_cle, limite=1000):
@@ -63,7 +70,7 @@ def chercher_avis(mot_cle, limite=1000):
 
 
 
-def generer_prompt_pour_gemini(mot_cle, limite=20):
+def generer_prompt_pour_gemini(mot_cle, limite=1000):
     avis = chercher_avis(mot_cle, limite)
 
     def formatter_posts(posts):
@@ -74,19 +81,80 @@ Analyse l'évolution des sentiments parmi les commentaires suivants, organisés 
 Indique si les sentiments deviennent plus positifs, plus négatifs ou restent stables, 
 et justifie ton analyse avec des observations. Résume par une tendance globale.
 
-📆 Il y a moins de 24h :
+Il y a moins de 24h :
 {formatter_posts(avis['il_y_a_24h'])}
 
-📆 Il y a moins d'une semaine :
+Il y a moins d'une semaine :
 {formatter_posts(avis['il_y_a_une_semaine'])}
 
-📆 Il y a moins d'un mois :
+Il y a moins d'un mois :
 {formatter_posts(avis['il_y_a_un_mois'])}
 """
+
+
+    # Fusion de tous les avis
+    tous_les_avis = avis['il_y_a_24h'] + avis['il_y_a_une_semaine'] + avis['il_y_a_un_mois']
+
+    # A. Analyse des sentiments
+    sentiments = []
+    times = []
+
+    for avis_item in tous_les_avis:
+        texte = avis_item.get("titre", "")
+        date = avis_item.get("date")
+        if texte.strip():
+            polarite = TextBlob(texte).sentiment.polarity
+            sentiment = "positif" if polarite > 0 else "negatif" if polarite < 0 else "neutre"
+            sentiments.append(sentiment)
+            times.append(date if isinstance(date, datetime) else datetime.now())
+            print(f" {texte}  Polarité : {polarite}  {sentiment}")
+
+    # B. Statistiques
+    df = Counter(sentiments)
+    total = sum(df.values())
+    pos_ratio = df["positif"] / total if total else 0
+    neg_ratio = df["negatif"] / total if total else 0
+    neu_ratio = df["neutre"] / total if total else 0
+
+    print(f"{df['positif']}/{total} avis positifs ({pos_ratio*100:.1f}%)")
+    print(f"{df['negatif']}/{total} avis négatifs ({neg_ratio*100:.1f}%)")
+    print(f"{df['neutre']}/{total} avis neutres ({neu_ratio*100:.1f}%)")
+
+    # Pourcentages
+    pos_pct = pos_ratio * 100
+    neg_pct = neg_ratio * 100
+    neu_pct = neu_ratio * 100
+
+    # C. Affichage avec jauge et annotations
+    fig2 = go.Figure(go.Indicator(
+        mode="gauge+number",
+        title={"text": f"Répartition des avis sur '{mot_cle}'"},
+        gauge={
+            "axis": {"range": [0, 100]},
+            "steps": [
+                {"range": [0, pos_pct], "color": "green"},
+                {"range": [pos_pct, pos_pct + neg_pct], "color": "gray"},
+                {"range": [pos_pct + neg_pct, 100], "color": "red"}
+            ]
+        }
+    ))
+
+    # Ajout des annotations (trick : les positions x sont approximées visuellement)
+    fig2.update_layout(
+        annotations=[
+            dict(x=0.15, y=0.15, text=f"Positif {pos_pct:.1f}%", showarrow=False, font=dict(color="black", size=14)),
+            dict(x=0.50, y=0.15, text=f"Neutre {neu_pct:.1f}%", showarrow=False, font=dict(color="black", size=14)),
+            dict(x=0.85, y=0.15, text=f"Négatif {neg_pct:.1f}%", showarrow=False, font=dict(color="black", size=14))
+        ]
+    )
+
+    fig2.show()
+
     return prompt
 
+response = gemini_model.generate_content(generer_prompt_pour_gemini("Musk"))
+print(response.text)
 
-response = gemini_model.generate_content(generer_prompt_pour_gemini("Trump"))
 print(response.text)
 
 
