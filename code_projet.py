@@ -8,18 +8,18 @@ from textblob import TextBlob
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 
-genai.configure(api_key="METTRE LE TIEN")
+genai.configure(api_key="Mettre ses infos personnels")
 
 # Initialisation du modèle Gemini
 gemini_model = genai.GenerativeModel("gemini-1.5-pro-latest")
 
 
 reddit = praw.Reddit(
-    client_id='METTRE LE TIEN',              
-    client_secret='METTRE LE TIEN',       
-    user_agent='METTRE LE TIEN',
-    username='METTRE LE TIEN',
-    password='METTRE LE TIEN'
+    client_id='Mettre ses infos personnels',              
+    client_secret='Mettre ses infos personnels',       
+    user_agent='Mettre ses infos personnels',
+    username='Mettre ses infos personnels',
+    password='Mettre ses infos personnels'
 )
 
 subreddit = reddit.subreddit('python')
