@@ -8,8 +8,8 @@ Ensuite via l'interface, nous pouvons donner le mot-clé que l'ont souhaite anal
 
 
 Technologies utilisées : 
-*PRAW pour interagir avec Reddit.
--TextBlob pour l'analyse de sentiment.
--Google Gemini pour générer une synthèse.
--Plotly pour les graphiques.
--Tkinter pour l'interface utilisateur.
+- PRAW pour interagir avec Reddit.
+- TextBlob pour l'analyse de sentiment.
+- Google Gemini pour générer une synthèse.
+- Plotly pour les graphiques.
+- Tkinter pour l'interface utilisateur.
