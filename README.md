@@ -10,8 +10,11 @@ Technologies utilisées :
 - Tkinter pour l'interface utilisateur.
 
 Exemple de résultat du programme : 
-<img src="images/2.jpg" alt="Résultat" width="500" height="300"/> <img src="images/3.jpg" alt="Résultat" width="500" height="300"/>
 
+<div style="display: flex; gap: 10px;">
+  <img src="images/2.jpg" alt="Résultat 1" width="500" height="300"/>
+  <img src="images/3.jpg" alt="Résultat 2" width="500" height="300"/>
+</div>
 
 Faire fonctionner l'outil : 
 
