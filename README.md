@@ -9,14 +9,14 @@ Technologies utilisées :
 - Plotly pour les graphiques.
 - Tkinter pour l'interface utilisateur.
 
-Pour installer toutes les dépendances nécessaires, il est recommandé d'exécuter la commande suivante dans votre terminal :
+Pour installer touts les packages nécessaires, il est possible d'exécuter la commande suivante dans votre terminal :
 pip install praw google-generativeai matplotlib plotly textblob tkinter
 
-Avant de pouvoir utiliser l'application, il est nécessaire de configurer vos propres identifiants personnels. Vous devez d'abord créer un compte Reddit puis obtenir vos clés API Reddit. Pour cela, rendez-vous sur https://www.reddit.com/prefs/apps.. Une fois l'application créée, récupérez votre client_id, votre client_secret, ainsi que votre username et password. Ces informations doivent être renseignées directement dans le code, dans la section prévue à cet effet.
+Avant de pouvoir utiliser l'application, il est nécessaire d'avoir vos propres identifiants personnels. Vous devez d'abord créer un compte Reddit puis obtenir vos clés API Reddit. Pour cela, rendez-vous sur https://www.reddit.com/prefs/apps.. Une fois l'application créée, récupérez votre client_id, votre client_secret, ainsi que votre username et password. Ces informations doivent être renseignées directement dans le code, dans la section prévue à cet effet.
 
-Ensuite, vous devez également disposer d'une clé API Google Gemini. Pour cela, allez sur https://ai.google.dev/, connectez-vous avec un compte Google, activez l'API Gemini, et générez votre clé API personnelle. Cette clé est à renseigner également dans le code dans la ligne genai.configure(api_key="VOTRE_CLE_API_GEMINI").
+Ensuite, il faut également disposer d'une clé API Google Gemini. Pour cela, allez sur https://ai.google.dev/, connectez-vous avec un compte Google, activez l'API Gemini, et générez votre clé API personnelle. Cette clé est à renseigner également dans le code dans la ligne genai.configure(api_key="VOTRE_CLE_API_GEMINI").
 
-Une fois toutes les informations correctement configurées, il suffit de lancer le script Python. Une interface graphique s'ouvrira alors. Vous pourrez saisir le mot-clé que vous souhaitez analyser et spécifier le nombre de posts Reddit que vous souhaitez prendre en compte (par défaut, 1000 posts). Après avoir cliqué sur "Analyser", l'application va :
+Une fois toutes les informations personnels renseigner dans le code, il suffit de lancer le script Python. Une interface graphique s'ouvrira alors. Vous pourrez saisir le mot-clé que vous souhaitez analyser et spécifier le nombre de posts Reddit que vous souhaitez prendre en compte (par défaut, 1000 posts). Après avoir cliqué sur "Analyser", l'application va :
 
 1. Récupérer les publications Reddit correspondant au mot-clé,
 
