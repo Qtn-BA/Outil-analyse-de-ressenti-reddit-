@@ -10,7 +10,7 @@ Technologies utilisées :
 - Tkinter pour l'interface utilisateur.
 
 Exemple de résultat du programme : 
-![Resultat](images/2.jpg)
+<img src="images/2.jpeg" alt="Résultat" width="400" height="300"/>
 ![Resultat](images/3.jpg)
 
 Faire fonctionner l'outil : 
