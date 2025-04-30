@@ -9,6 +9,12 @@ Technologies utilisées :
 - Plotly pour les graphiques.
 - Tkinter pour l'interface utilisateur.
 
+Exemple de résultat du programme : 
+![Resultat](images/2.jpeg)
+![Resultat](images/3.jpeg)
+
+Faire fonctionner l'outil : 
+
 Pour installer touts les packages nécessaires, il est possible d'exécuter la commande suivante dans votre terminal :
 pip install praw google-generativeai matplotlib plotly textblob tkinter
 
