@@ -17,7 +17,8 @@ Exemple de résultat du programme : (datant du 23/04/2025)
 </div>
 
 
-Faire fonctionner l'outil : 
+
+Pour faire fonctionner l'outil : 
 
 Pour installer touts les packages nécessaires, il est possible d'exécuter la commande suivante dans votre terminal :
 pip install praw google-generativeai matplotlib plotly textblob tkinter
