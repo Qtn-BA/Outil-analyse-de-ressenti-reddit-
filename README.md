@@ -9,11 +9,11 @@ Technologies utilisées :
 - Plotly pour les graphiques.
 - Tkinter pour l'interface utilisateur.
 
-Exemple de résultat du programme : 
+Exemple de résultat du programme : (datant du 23/04/2025)
 
 <div style="display: flex; gap: 10px;">
   <img src="images/2.jpg" alt="Résultat 1" width="500" height="300"/>
-  <img src="images/3.jpg" alt="Résultat 2" width="850" height="500"/>
+  <img src="images/3.jpg" alt="Résultat 2" width="800" height="500"/>
 </div>
 
 
