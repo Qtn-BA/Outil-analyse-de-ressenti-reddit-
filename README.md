@@ -9,7 +9,7 @@ Technologies utilisées :
 - Plotly pour les graphiques.
 - Tkinter pour l'interface utilisateur.
 
-Exemple de résultat du programme : (datant du 23/04/2025)
+Exemple des sorties du programme : (datant du 23/04/2025)
 
 <div style="display: flex; gap: 10px;">
   <img src="sorties/Graphique.jpg" alt="Résultat 1" width="500" height="300"/>
