@@ -12,8 +12,8 @@ Technologies utilisées :
 Exemple de résultat du programme : 
 
 <div style="display: flex; gap: 10px;">
-  <img src="images/2.jpg" alt="Résultat 1" width="300" height="300"/>
-  <img src="images/3.jpg" alt="Résultat 2" width="400" height="300"/>
+  <img src="images/2.jpg" alt="Résultat 1" width="500" height="300"/>
+  <img src="images/3.jpg" alt="Résultat 2" width="600" height="300"/>
 </div>
 
 Faire fonctionner l'outil : 
